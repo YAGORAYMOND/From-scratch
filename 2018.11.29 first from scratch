@@ -1,0 +1,32 @@
+(
+SynthDef(\a,{
+	arg freq=440;
+	var bat=0.5, sig, env;
+	sig=SinOsc.ar([freq, freq+bat, freq-bat]);
+	sig=Limiter.ar(sig,0.1);
+	env=EnvGen.ar(Env([0,1,0],[2,7]));
+
+	Out.ar([0,1],sig*env);
+
+}).play
+)
+
+
+Synth(\a).set(\freq,300)
+(
+Tdef(\b,{
+	var freq=[61, 65, 63], i=0;
+
+	freq=freq-2;
+	inf.do{
+	3.do{
+		Synth(\a).set(\freq, freq[i].midicps);
+		i=i+1;
+		6.wait;
+		};
+		i=0;
+
+}}).fork
+)
+
+Ndef(\b,{WhiteNoise.ar(LFNoise0.ar(5)*0.1)}).play([0,1])
