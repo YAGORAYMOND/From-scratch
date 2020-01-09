@@ -1,0 +1,52 @@
+b=Buffer.read(s,"C:/Users/Yago Raymond/Desktop/LIVE CODING/2019.12.19 - PreXmas from scratch/Jingle Bell Mono.wav");
+
+
+(
+SynthDef(\buf,{
+	arg spos=0, rate=1, atk=0.01, rel=0.1, ampl=1;
+	var sig, env ;
+	sig=PlayBuf.ar(1,b,rate,1,spos*b.numFrames);
+	env=EnvGen.kr(Env([0,1,0],[atk, rel]),doneAction:2);
+	Out.ar([0,1],sig*env*ampl);
+}).add;
+)
+
+Synth(\buf,[\rel, 60, \rate, 0.2])
+
+(
+Pbindef(\a,
+	\instrument, \buf,
+	\spos,0.7,
+	\dur, Pseq([1,1,1,0.5,0.5],inf)
+).play
+)
+
+(
+Pbindef(\b,
+	\instrument, \buf,
+	\spos,Pseq([0.1,0.4,0.5],inf),
+	\rel, 0.1,
+	\dur, Pseq([1,0.5,1,0.5,1]/2,inf)
+).play
+)
+
+(
+Pbindef(\c,
+	\instrument, \buf,
+	\spos,[0.1,0.4,0.5].choose,
+	\rel, 0.01,
+	\dur, Pseq([1,0.5,1,0.5,1]/4,inf)
+).play
+)
+
+
+(
+Pbindef(\d,
+	\instrument, \buf,
+	\rate, 0.05,
+	\spos,[0.1,0.4,0.5].choose,
+	\rel, 2,
+	\dur, Pseq([1,0.5,1,0.5,1],inf)
+).play
+)
+
