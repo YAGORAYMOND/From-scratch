@@ -1,0 +1,15 @@
+//FROM SCRATCH VIU 2020
+//2020/02/13
+
+
+
+Ndef(\a,{Saw.ar(200,0.1)*Pulse.kr(1/4,0.3)!2})
+Ndef(\b,{Saw.ar(200,0.1)*Pulse.kr(1/16,0.3)!2})
+Ndef(\c,{Saw.ar(300,0.1)*Pulse.kr(1/16,0.5)!2})
+Ndef(\d,{SinOsc.ar(300,0,0.3)*Pulse.kr(1/32,0.1)!2})
+Ndef(\e,{SinOsc.ar(100,0,0.3)*Pulse.kr(1/8,0.5)!2})
+Ndef(\f,{SinOsc.ar(round(LFNoise0.kr(0.1).range(100,500),100))*Pulse.kr(1,0.9)*0.5!2})
+Ndef(\g,{SinOsc.ar(round(LFNoise0.kr(0.5).range(100,500),100))*Pulse.kr(2,0.9)*0.5!2})
+
+Ndef(\a).play
+Ndef(\a).stop
