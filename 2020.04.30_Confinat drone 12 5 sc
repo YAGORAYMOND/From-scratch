@@ -1,0 +1,44 @@
+
+
+Ndef(\x12).fadeTime=10
+Ndef(\x5).fadeTime=10
+
+
+(
+Ndef(\x12,{
+	var n, sig, freq, amp, famp, pan;
+	
+	n=3;
+	
+	freq=Array.fill(n,{|i| 55*(2**i)});
+	amp=Array.fill(n,{|i| 1/((2**i)+1)});
+	famp=Array.fill(n,{|i| rrand(0.1,1)});
+	
+	sig=Mix(SinOsc.ar(freq,0,amp*LFNoise0.kr(famp).range(0,0.5)));
+	
+	sig=Pan2.ar(sig,SinOsc.kr(0.5)*0.7);
+	
+}).playN([0,1]);
+)
+
+
+(
+Ndef(\x5,{
+	var n, sig, freq, amp, famp, pan;
+	
+	n=3;
+	
+	freq=Array.fill(n,{|i| 55*(2**i)*(2/3)});
+	amp=Array.fill(n,{|i| 1/((2**i)+1)});
+	famp=Array.fill(n,{|i| rrand(0.1,100)});
+	
+	sig=Mix(SinOsc.ar(freq,0,amp*LFNoise1.kr(famp).range(0,0.5)));
+	
+	sig=Pan2.ar(sig,0);
+	
+}).playN([0,1]);
+)
+
+
+Ndef(\x12).free
+Ndef(\x5).free
